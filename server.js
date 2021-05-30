@@ -3,6 +3,9 @@ import mongoose from 'mongoose'
 import questionnaire from './dbQuestions.js'
 import Cors from 'cors'
 //App Configuration
+// Admin URL: https://app.netlify.com/sites/quizex
+// URL:       https://quizex.netlify.app
+// Site ID:   6417843c-9bc6-41e6-94a2-b6d013fd314d
 const app = express();
 const port = process.env.PORT || 4001;
 const password = 'Vaibhav#1'
@@ -22,19 +25,6 @@ mongoose.connect(connection_uri, {useNewUrlParser:true,
 //API Endpoints
 app.get('/',(request,response)=>response.status(200).send("hey"))
 
-app.post('/backend/question',(req,res)=>{
-    const dbEle = req.body;
-
-    questionnaire.create(dbEle,(err,data)=>{
-        if(err){
-            res.status(500).send(err);
-        }
-        else{
-            res.status(200).send(data);
-        }
-    })
-}) 
-
 app.get('/backend/question',(req,res)=>{
     questionnaire.find((err,data)=>{
         if(err){
@@ -45,5 +35,7 @@ app.get('/backend/question',(req,res)=>{
         }
     })
 })
+
+
 //Listener 
 app.listen(port,()=>console.log(`listen on ${port}`))
