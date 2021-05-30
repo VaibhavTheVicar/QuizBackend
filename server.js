@@ -21,6 +21,20 @@ mongoose.connect(connection_uri, {useNewUrlParser:true,
 
 //API Endpoints
 app.get('/',(request,response)=>response.status(200).send("hey"))
+
+app.post('/backend/question',(req,res)=>{
+    const dbEle = req.body;
+
+    questionnaire.create(dbEle,(err,data)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            res.status(200).send(data);
+        }
+    })
+}) 
+
 app.get('/backend/question',(req,res)=>{
     questionnaire.find((err,data)=>{
         if(err){
